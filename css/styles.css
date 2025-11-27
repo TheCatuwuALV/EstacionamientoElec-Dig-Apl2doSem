@@ -1,0 +1,182 @@
+:root {
+  --bg: #0f1724;
+  --card: #1e293b;
+  --accent: #38bdf8;   /* Cyan */
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --ok: #22c55e;       /* Verde */
+  --warn: #f59e0b;     /* Amarillo */
+  --danger: #ef4444;   /* Rojo */
+}
+
+* { box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+body { margin: 0; padding: 20px; background-color: var(--bg); color: var(--text); }
+.container { max-width: 1200px; margin: 0 auto; }
+
+/* --- HEADER --- */
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+h1 { margin: 0; font-size: 1.5rem; }
+.subtitle { color: var(--muted); font-size: 0.9rem; }
+.top-controls { display: flex; gap: 15px; align-items: center; }
+
+/* --- LEYENDA (Esto es lo que faltaba) --- */
+.legend {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  background: var(--card); /* Fondo de tarjeta */
+  padding: 8px 15px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.legend small {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.legend-color {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+/* Colores de los puntitos */
+.legend-color.free { background: var(--ok); box-shadow: 0 0 5px var(--ok); }
+.legend-color.reserved { background: var(--warn); box-shadow: 0 0 5px var(--warn); }
+.legend-color.occupied { background: var(--danger); box-shadow: 0 0 5px var(--danger); }
+
+/* --- BOTONES GENERALES --- */
+button {
+  background: var(--accent);
+  color: #0f1729;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+button:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* Botones Ghost (Limpiar filtros, Reiniciar Sistema) */
+button.ghost {
+  background: transparent;
+  border: 1px solid var(--muted);
+  color: var(--text);
+}
+button.ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* --- LAYOUT --- */
+.grid { display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
+.card { background: var(--card); padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+
+/* --- TARJETAS DE PLAZAS (SLOTS) --- */
+.slots { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  gap: 15px; 
+  margin-top: 15px; 
+}
+
+.slot {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 140px; 
+  position: relative;
+  transition: all 0.3s;
+}
+
+.slot.free { border-top: 4px solid var(--ok); }
+.slot.occupied { border-top: 4px solid var(--danger); background: rgba(239, 68, 68, 0.05); }
+.slot.reserved { border-top: 4px solid var(--warn); }
+
+.slot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: white;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 5px;
+}
+.slot-plate { 
+    font-size: 0.85rem; 
+    background: #0f1729; 
+    padding: 3px 6px; 
+    border-radius: 4px; 
+    color: #fbbf24; 
+    border: 1px solid #334155;
+}
+
+.slot-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 8px;
+  column-gap: 5px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.info-item { display: flex; flex-direction: column; }
+.info-label { font-size: 0.7rem; opacity: 0.7; text-transform: uppercase; }
+.info-val { font-weight: bold; color: var(--text); font-size: 0.9rem; }
+.price-val { color: var(--ok); font-size: 1.1rem; }
+
+/* BOTÓN REINICIAR (PEQUEÑO) */
+.btn-reset-slot {
+  background: transparent !important;
+  border: 1px solid #475569 !important;
+  color: #94a3b8 !important;
+  width: auto !important;
+  padding: 4px 10px !important;
+  font-size: 0.75rem !important;
+  margin-top: 5px;
+  grid-column: 2;
+  justify-self: end;
+}
+.btn-reset-slot:hover {
+  border-color: var(--danger) !important;
+  color: var(--danger) !important;
+  background: rgba(239, 68, 68, 0.1) !important;
+}
+
+/* --- SIDEBAR --- */
+aside input, aside select, .filters input, .filters select { 
+    width: 100%; 
+    padding: 10px; 
+    background: #0f1729; 
+    border: 1px solid #334155; 
+    color: white; 
+    margin-bottom: 15px; 
+    border-radius: 6px;
+}
+aside label { display: block; margin-bottom: 5px; font-size: 0.85rem; color: var(--muted); }
+
+/* Filtros */
+.filters { display: flex; gap: 10px; margin-bottom: 15px; }
+.filters button { height: 42px; white-space: nowrap; }
+
+/* Stats y Logs */
+.log { font-size: 0.8rem; color: var(--muted); max-height: 200px; overflow-y: auto; font-family: monospace; }
+.statrow { display: flex; gap: 10px; text-align: center; margin-bottom: 10px;}
+.stat { flex: 1; background: #0f1729; padding: 10px; border-radius: 8px; }
+.stat strong { display: block; font-size: 1.5rem; color: white;}

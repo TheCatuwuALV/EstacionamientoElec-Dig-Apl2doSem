@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WebApp Estacionamiento</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>WebApp Estacionamiento</h1>
+        <div class="subtitle">Panel de control simple para gestionar espacios de estacionamiento</div>
+      </div>
+      <div class="top-controls">
+        <div class="legend card">
+          <span class="legend-color free"></span><small>Libre</small>
+          <span class="legend-color reserved"></span><small>Reservado</small>
+          <span class="legend-color occupied"></span><small>Ocupado</small>
+        </div>
+        <button id="addSlotBtn" class="ghost" style="display:none">+ Añadir plaza</button> 
+        <button id="exportBtn">Exportar CSV</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section>
+        <div class="card panel">
+          <div class="panel-header">
+            <strong>Mapa de plazas</strong>
+            <div class="statrow">
+              <div class="stat"><div><strong id="totalCount">0</strong></div><small>Total</small></div>
+              <div class="stat"><div><strong id="freeCount">0</strong></div><small>Libres</small></div>
+              <div class="stat"><div><strong id="occCount">0</strong></div><small>Ocupadas</small></div>
+            </div>
+          </div>
+
+          <div class="filters">
+            <input id="search" placeholder="Buscar por ID, matrícula..." />
+            <select id="filter">
+              <option value="all">Todos</option>
+              <option value="free">Libres</option>
+              <option value="reserved">Reservadas</option>
+              <option value="occupied">Ocupadas</option>
+            </select>
+            <button id="clearBtn" class="ghost">Limpiar filtros</button>
+          </div>
+
+          <div id="slots" class="slots"></div>
+        </div>
+
+        <div class="card log-card">
+          <strong>Registro de actividad</strong>
+          <div id="log" class="log"></div>
+        </div>
+      </section>
+
+      <aside>
+        <div class="card panel">
+          <strong>Control rápido</strong>
+          <form id="controlForm">
+            <label for="slotSelect">Plaza</label>
+            <select id="slotSelect"></select>
+
+            <label for="plate">Matrícula / ID vehículo</label>
+            <input id="plate" placeholder="ABC-1234" />
+
+            <label for="action">Acción</label>
+            <select id="action">
+              <option value="occupy">Registrar entrada</option>
+              <option value="leave">Registrar salida</option>
+              <option value="reserve">Reservar</option>
+              <option value="free">Liberar</option>
+            </select>
+
+            <button id="doAction" type="button">Ejecutar</button>
+            <small style="color:#64748b">Conectado al servidor Node.js</small>
+          </form>
+        </div>
+
+        <div class="card panel">
+          <strong>Configuración</strong>
+          <label for="initialSlots">Plazas iniciales</label>
+          <input id="initialSlots" type="number" min="1" value="12" />
+          <button id="resetBtn" class="ghost">Reiniciar Sistema</button>
+        </div>
+
+        <div class="card panel">
+          <strong>Ayuda rápida</strong>
+          <ul class="help-list">
+            <li>Click en una plaza para seleccionarla.</li>
+            <li>Usa "Registrar entrada" para asignar matrícula.</li>
+            <li>Exporta CSV para descargar el reporte.</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      Demo — Interfaz básica en HTML/CSS/JS.
+    </footer>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
