@@ -12,7 +12,7 @@ const rl = readline.createInterface({
 async function liberarPlaza(numero) {
     const slotId = `slot-${numero}`;
     
-    console.log(`\n💨 Detectando SALIDA en Plaza ${numero}...`);
+    console.log(`\nDetectando SALIDA en Plaza ${numero}...`);
 
     try {
         const respuesta = await fetch(API_URL, {
@@ -22,12 +22,12 @@ async function liberarPlaza(numero) {
         });
         
         if(respuesta.ok) {
-            console.log(`✅ Salida registrada. Revisa el cobro en la web.`);
+            console.log(`Salida registrada. Revisa el cobro en la web.`);
         } else {
-            console.log("❌ El servidor no respondió bien.");
+            console.log("El servidor no respondió bien.");
         }
     } catch (error) {
-        console.log("❌ Error: Servidor desconectado.");
+        console.log("Error: Servidor desconectado.");
     }
 }
 
@@ -49,7 +49,7 @@ rl.on('line', (input) => {
     if (numero > 0) {
         liberarPlaza(numero);
     } else {
-        console.log("⚠️ Por favor escribe solo el número (ej: 1, 5, 12)");
+        console.log("Por favor escribe solo el número (ej: 1, 5, 12)");
     }
 
     setTimeout(() => process.stdout.write("\nEscribe número de plaza a liberar > "), 500);

@@ -16,7 +16,7 @@ function initSystem(count = 12) {
         slots[`slot-${i}`] = { 
             state: "free", 
             plate: "--", 
-            entryTimestamp: null, // Hora exacta para cálculos
+            entryTimestamp: null, 
             display: {
                 ingreso: "--:--",
                 salida: "--:--",
@@ -33,7 +33,7 @@ function addLog(msg) {
     if (logs.length > 30) logs.pop();
 }
 
-// LÓGICA DE COBRO (Compartida por Sensor y Manual)
+// LÓGICA DE COBRO Y FINALIZACION DE ESTADIA
 function finalizarEstadia(slotId) {
     const slot = slots[slotId];
     if (slot.entryTimestamp) {
@@ -56,13 +56,13 @@ function finalizarEstadia(slotId) {
 
 initSystem(12);
 
-// --- RUTAS ---
+// RUTAS
 
 app.get("/api/status", (req, res) => {
     res.json({ slots, logs });
 });
 
-// ACCIONES MANUALES (Web)
+// ACCIONES MANUALES (pagina Web)
 app.post("/api/manual-action", (req, res) => {
     const { slotId, action, plate } = req.body;
     
@@ -87,7 +87,7 @@ app.post("/api/manual-action", (req, res) => {
         // COBRAR
         finalizarEstadia(slotId);
     }
-    else if (action === 'free') { // ESTO ES "REINICIAR"
+    else if (action === 'free') {
         slots[slotId].state = "free";
         slots[slotId].plate = "--";
         slots[slotId].entryTimestamp = null;
@@ -104,7 +104,7 @@ app.post("/api/sensor", (req, res) => {
     if(slots[slotId]) {
         const prev = slots[slotId].state;
 
-        // AUTO SALE -> COBRAR
+        // AUTO SALE == COBRAR
         if(estado === 'free' && prev === 'occupied') {
             finalizarEstadia(slotId);
         }
@@ -127,5 +127,5 @@ app.post("/api/reset", (req, res) => {
 });
 
 app.listen(3000, () => {
-    console.log("✅ SISTEMA DE COBROS LISTO (5 Bs/min)");
+    console.log("SISTEMA DE COBROS LISTO (5 Bs/min)");
 });
